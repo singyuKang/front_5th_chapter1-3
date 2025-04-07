@@ -22,5 +22,5 @@ export function useCallback<T extends Function>(
     result.current = factory;
   }
 
-  return result.current;
+  return result.current as T;
 }
