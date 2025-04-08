@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { generateItems } from "./utils";
-import { useTheme } from "./contexts/ThemeContext";
+import { ThemeProvider, useTheme } from "./contexts/ThemeContext";
 
 import { Header } from "./conponents/Header";
 import { ItemList } from "./conponents/ItemList";
 import { ComplexForm } from "./conponents/ComplexForm";
 import { NotificationSystem } from "./conponents/NotificationSystem";
+import { NotificationProvider } from "./contexts/NotificationContext";
+import { AuthProvider } from "./contexts/AuthContext";
 
 // 메인 App 컴포넌트
-const App: React.FC = () => {
+const AppContent: React.FC = () => {
   const { theme } = useTheme();
   const [items, setItems] = useState(generateItems(1000));
 
@@ -21,7 +23,7 @@ const App: React.FC = () => {
 
   return (
     <div
-      className={`min-h-screen ${theme === "light" ? "bg-gray-100 " : "bg-gray-900 text-white"}`}
+      className={`min-h-screen ${theme === "light" ? "bg-gray-100" : "bg-gray-900 text-white"}`}
     >
       <Header />
       <div className="container mx-auto px-4 py-8">
@@ -36,6 +38,18 @@ const App: React.FC = () => {
       </div>
       <NotificationSystem />
     </div>
+  );
+};
+
+const App: React.FC = () => {
+  return (
+    <ThemeProvider>
+      <NotificationProvider>
+        <AuthProvider>
+          <AppContent />
+        </AuthProvider>
+      </NotificationProvider>
+    </ThemeProvider>
   );
 };
 
