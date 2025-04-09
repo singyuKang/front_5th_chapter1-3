@@ -9,10 +9,9 @@ import { NotificationSystem } from "./conponents/NotificationSystem";
 import { NotificationProvider } from "./contexts/NotificationContext";
 import { AuthProvider } from "./contexts/AuthContext";
 
-// 메인 App 컴포넌트
 const AppContent: React.FC = () => {
   const { theme } = useTheme();
-  const [items, setItems] = useState(generateItems(1000));
+  const [items, setItems] = useState(() => generateItems(1000));
 
   const addItems = () => {
     setItems((prevItems) => [
